@@ -1,39 +1,42 @@
-# AAF2AAF : Pro Tools Fade Un-Renderer
+# AAF2AAF: Pro Tools Fade Un-Renderer
 
 ## Description
 
-**AAF2AAF** est un outil en ligne de commande (CLI) autonome écrit en Python. 
-Il résout un problème majeur avec les exports AAF de Pro Tools : la destruction des fondus virtuels.
+**AAF2AAF** is a standalone Python command-line tool (CLI).
+It solves a major issue with Pro Tools AAF exports: virtual fades are rendered destructively.
 
-Lorsque Pro Tools exporte un AAF, il consolide les fondus et les rend sous forme de vrais fichiers audio (ex: "Fade 1", "Fade 2"). Cela empêche toute édition ultérieure (trimming, ajustement de la courbe) dans un autre logiciel ou lors d'une réimportation.
+When Pro Tools exports an AAF, it consolidates fades and renders them as actual audio files (for example, "Fade 1" or "Fade 2"). This prevents any subsequent editing—such as trimming or adjusting the fade curve—in another application or after re-importing the AAF.
 
-**AAF2AAF agit comme un "Un-Renderer" temporel :**
-Il parcourt la timeline d'un AAF exporté par Pro Tools, détecte les fichiers audio rendus qui correspondent à des fondus, calcule les *handles* (poignées) des clips audio adjacents, et remplace mathématiquement ces rendus par de véritables **Transitions AAF standard (Audio Dissolve)**.
+**AAF2AAF acts as a temporal "Un-Renderer":**
+It scans the timeline of an AAF exported by Pro Tools, detects rendered audio files that correspond to fades, calculates the handles of adjacent audio clips, and mathematically replaces those renders with genuine **standard AAF Transitions (Audio Dissolves)**.
 
-Le résultat est un nouvel AAF pur (de style Media Composer) qui force Pro Tools (et les autres DAW) à re-générer de vrais fondus virtuels éditables et non-destructifs à l'importation.
+The result is a clean, Media Composer-style AAF that makes Pro Tools (and other DAWs) regenerate real, editable, non-destructive virtual fades when imported.
 
-## Prérequis
+## Prerequisites
 
 - Python 3.x
-- Librairie `pyaaf2` (`pip install pyaaf2`)
+- The `pyaaf2` library (`pip install pyaaf2`)
 
-## Utilisation
+## Usage
 
-Le script s'utilise directement en ligne de commande, sans interface graphique.
+Run the script directly from the command line; no graphical interface is required.
 
 ```bash
 python AAF2AAF.py <input.aaf> <output.aaf>
 ```
 
-**Exemple :**
+**Example:**
+
 ```bash
-python AAF2AAF.py mon_export_protools.aaf session_editable.aaf
+python AAF2AAF.py my_protools_export.aaf editable_session.aaf
 ```
 
-## Fonctionnalités
+## Features
 
-- **Détection heuristique** : Repère automatiquement les clips nommés "Fade..."
-- **Restitution parfaite des Crossfades** : Étire les clips adjacents pour recréer le croisement.
-- **Restauration des Fade-In / Fade-Out** : Manipule les "Fillers" (silences) pour recréer les fondus d'ouverture et de fermeture.
-- **Respect absolu des Handles** : Ne génère jamais de fondus virtuels plus longs que l'audio réellement disponible dans les fichiers sources consolidés (prévient les erreurs d'import "out of bounds").
-- **Correction des désynchronisations** : Maintient l'intégrité absolue de la durée de la timeline, même en cas de fondus tronqués par manque de handles.
+- **Heuristic detection**: Automatically identifies clips named "Fade..."
+- **Accurate crossfade reconstruction**: Extends adjacent clips to recreate the overlap.
+- **Fade-in / fade-out restoration**: Manipulates fillers (silence) to recreate opening and closing fades.
+- **Strict handle compliance**: Never generates virtual fades longer than the audio actually available in the consolidated source files, preventing "out of bounds" import errors.
+- **Desynchronization correction**: Preserves the timeline's total duration, even when fades are truncated because of insufficient handles.
+
+Conçu par Sébastien Bédard
