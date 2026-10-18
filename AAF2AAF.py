@@ -495,6 +495,7 @@ def make_transition(f, op_def, length, cut, curve='linear', target='protools'):
     return transition
 
 def unrender_fades(in_path, out_path, **kwargs):
+    """Preserve the original callable interface for existing integrations."""
     return process_fades(in_path, out_path, **kwargs)
 
 def main():

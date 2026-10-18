@@ -102,13 +102,7 @@ python -B -m unittest -v
 
 The regression suite generates temporary AAFs with embedded PCM audio. It checks CLI execution and strict reporting, mono/stereo crossfades, source bounds, consecutive fades, nested and multiple-input effects, automation, curve inference, and output protection after failure. See [VALIDATION.md](VALIDATION.md) for the manual Pro Tools round trip.
 
-For manual import diagnostics, `tools/create_protools_diagnostic.py` can author a separate test timeline from the native single-track, five-fade Pro Tools test export. The reference must contain fade-in, fade-out, both fades on one clip, and a crossfade, in that order. It creates new 24-bit test tones, five 12-frame rendered fades, and the converted AAF in a new destination directory. This is generated diagnostic material, not recovery of the reference session's audio. It leaves the reference AAF and its media intact.
-
-```bash
-python -B tools/create_protools_diagnostic.py reference.aaf new_diagnostic_directory
-```
-
-The destination must not already exist. The helper produces `diagnostic_rendered.aaf`, `diagnostic_editable.aaf`, and an `Audio Files` directory. The validated reference configuration is a mono Pro Tools export at 48 kHz and 24000/1001 fps. See [VALIDATION.md](VALIDATION.md) for the native export/import/re-export procedure and tested dependency versions.
+Manual test sessions, media, and diagnostic scripts specific to those sessions are kept outside the repository. See [VALIDATION.md](VALIDATION.md) for the native export/import/re-export procedure and tested dependency versions.
 
 ## License
 

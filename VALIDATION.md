@@ -42,7 +42,7 @@ This validates the mono configuration above. Stereo selection and more complex e
 
 ## Reproducing the manual validation
 
-1. Prepare the four ordered cases: fade-in only, fade-out only, both on one clip, and a crossfade. Use audible sources and sufficient handles. Alternatively, generate the diagnostic from a matching native test export with `tools/create_protools_diagnostic.py`, as described in [README.md](README.md).
+1. Prepare the four cases: fade-in only, fade-out only, both on one clip, and a crossfade. Separate the cases with silence. Use audible sources, short fades, and sufficient handles, as described in [README.md](README.md).
 2. Import the diagnostic into Pro Tools and export it as a native AAF with media and one-second handles, retaining the short fades. This native export is the conversion input.
 3. Run `python AAF2AAF.py native_export.aaf converted.aaf --report conversion.json --strict`. For this fixture, expect five converted renders, zero preserved renders, and exit status `0`.
 4. Import `converted.aaf` into a new Pro Tools session with the matching audio and timeline rates. Retain absolute positions. Check that all five fades can be edited and that the clip with both fades remains intact.

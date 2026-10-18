@@ -24,7 +24,6 @@ Changes are recorded here before a release is tagged. This update has not been a
 - Compatible multiple-input effect handling, nested audio sequence traversal, and mono/stereo dissolve selection from verified channel layouts.
 - JSON conversion reports with per-fade results and preservation reasons, printed render counts, and `--strict` status reporting.
 - `--curve`, `--target`, and `--consecutive` options for explicit conversion policies.
-- A diagnostic authoring helper that creates audible short-fade fixtures without changing the reference session or its media.
 - A 24-test regression suite and a documented native Pro Tools export/import/re-export validation procedure.
 
 ### Changed
@@ -32,6 +31,7 @@ Changes are recorded here before a release is tagged. This update has not been a
 - Default conversion now verifies the curve against available rendered PCM and targets Pro Tools. Silent, unidentified, unsupported, or insufficiently sourced fades stay rendered and are reported. Explicit curve options remain available when the intended curve is known.
 - Add NumPy (`numpy>=1.24`) alongside `pyaaf2`; install dependencies with `pip install -r requirements.txt`.
 - Document media requirements, export handles, target compatibility, exit statuses, and information limits in [README.md](README.md).
+- Keep session-specific diagnostic scripts and media outside the repository; ignore Python bytecode and the local `.venv` directory.
 
 ### Validation
 
